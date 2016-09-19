@@ -1,6 +1,8 @@
 'use strict';
 
 const fs = require('fs');
-const torrent = fs.readFileSync('gatsby.torrent');
+const bencode = require('bencode');
 
-console.log(torrent.toString('utf8'));
+const torrent = bencode.decode(fs.readFileSync('gatsby.torrent'));
+
+console.log(torrent.announce.toString('utf8'));
