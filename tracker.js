@@ -4,6 +4,7 @@ const bencode = require('bencode');
 const http = require('http');
 const crypto = require('crypto');
 const bignum = require('bignum');
+const Buffer = require('buffer').Buffer;
 
 function Tracker(params) {
   this.torrent = bencode.decode(fs.readFileSync(params.fileName));
@@ -27,7 +28,10 @@ Tracker.prototype.calculateSize = function() {
   return bignum.toBuffer(size, {size: 8});
 }
 
-
-
+Tracker.prototype.generatePeerID = function() {
+  const id = crypto.randomBytes(20);
+  Buffer.from('-VP0001-').copy(id, 0);
+  return id;
+}
 
 module.exports = Tracker;
