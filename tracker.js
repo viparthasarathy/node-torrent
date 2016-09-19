@@ -3,6 +3,7 @@ const fs = require('fs');
 const bencode = require('bencode');
 const http = require('http');
 const crypto = require('crypto');
+const bignum = require('bignum');
 
 function Tracker(params) {
   this.torrent = bencode.decode(fs.readFileSync(params.fileName));
@@ -15,6 +16,15 @@ Tracker.prototype.requestPeers = function() {
 Tracker.prototype.generateInfoHash = function() {
   const info = bencode.encode(this.torrent.info);
   return crypto.createHash('sha1').update(info).digest();
+}
+
+Tracker.prototype.calculateSize = function() {
+  if (torrent.info.files) {
+    const size = torrent.info.files.map( file => file.length ).reduce( (a, b) => a + b );
+  } else {
+    const size = torrent.info.length;
+  }
+  return bignum.toBuffer(size, {size: 8});
 }
 
 
