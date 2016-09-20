@@ -5,8 +5,6 @@
   "main": "index.js",
   "dependencies": {
     "bencode": "^0.10.0",
-    "bencode-js": "0.0.7",
-    "bignum": "^0.12.5"
   },
   "devDependencies": {},
   "scripts": {
